@@ -8,16 +8,18 @@ from random import choice, randint
 
 # Create empty field
 field = [
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
         ]
 
 
@@ -29,29 +31,41 @@ def choice_of_direction():
 direction =  choice_of_direction()
 
 if direction == 'horizontal':
-    starting_cell_row = randint(0, 9)
-    starting_cell_column = randint(0, 6)
+    starting_cell_row = randint(1, 10)
+
+    starting_cell_column = randint(1, 7)
+    scc = starting_cell_column
+
     print(starting_cell_row, starting_cell_column)
-    for i in range(4):
-        field[starting_cell_row][starting_cell_column] = 1
-        starting_cell_column += 1
-    if starting_cell_row > 0:
-        starting_cell_row -= 1
-        starting_cell_column -= 5
-        for i in range(6):
-            field[starting_cell_row][starting_cell_column] = 8
-            starting_cell_column += 1
+
+    for _ in range(4):
+        field[starting_cell_row][scc] = 1
+        scc += 1
+
+    for row in [starting_cell_row - 1, starting_cell_row + 1]:
+        scc = starting_cell_column - 1
+        for _ in range(6):
+            field[row][scc] = 8
+            scc += 1
+
+    field[starting_cell_row][starting_cell_column - 1] = 8
+    field[starting_cell_row][starting_cell_column + 4] = 8
+
 
 else:
-    starting_cell_row = randint(0, 6)
-    starting_cell_column = randint(0, 9)
+    starting_cell_row = randint(1, 7)
+    scr = starting_cell_row
+
+    starting_cell_column = randint(1, 10)
+
     print(starting_cell_row, starting_cell_column)
+
     for i in range(4):
         field[starting_cell_row][starting_cell_column] = 1
         starting_cell_row += 1
 
 
-for i in range(10):
+for i in range(12):
     print(field[i])
 
 print(direction)
