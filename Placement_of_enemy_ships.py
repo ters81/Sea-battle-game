@@ -1,6 +1,11 @@
 
 from random import choice, randint
 
+# 0 - empty cell
+# 1 - cell with a ship
+# 8 - forbidden cell (no other ship can stand here)
+
+
 # Create empty field
 field = [
          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -30,6 +35,12 @@ if direction == 'horizontal':
     for i in range(4):
         field[starting_cell_row][starting_cell_column] = 1
         starting_cell_column += 1
+    if starting_cell_row > 0:
+        starting_cell_row -= 1
+        starting_cell_column -= 5
+        for i in range(6):
+            field[starting_cell_row][starting_cell_column] = 8
+            starting_cell_column += 1
 
 else:
     starting_cell_row = randint(0, 6)
