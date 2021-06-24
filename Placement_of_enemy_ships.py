@@ -5,7 +5,6 @@ from random import choice, randint
 # 1 - cell with a ship
 # 8 - forbidden cell (no other ship can stand here)
 
-
 # Create empty field
 field = [
     [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
@@ -21,7 +20,6 @@ field = [
     [8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
     [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
         ]
-
 list_of_empty_cells = [
     '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10',
     '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-10',
@@ -35,30 +33,20 @@ list_of_empty_cells = [
     '10-1', '10-2', '10-3', '10-4', '10-5', '10-6', '10-7', '10-8', '10-9', '10-10'
 ]
 
-
-def choice_of_direction():
-    # Random choice of ship direction (horizontal or vertical)
-    return choice(['horizontal', 'vertical'])
-
 # Adding a four-deck ship
-direction =  choice_of_direction()
 
-# direction = 'horizontal'  # Проверка
+direction = choice(['horizontal', 'vertical'])
+starting_cell = choice(list_of_empty_cells).split('-')
+
+# starting_cell = '5-1'  # Проверка
+
+starting_cell_row = int(starting_cell[0])
+starting_cell_column = int(starting_cell[1])
+
+print(starting_cell_row, starting_cell_column)
 
 if direction == 'horizontal':
-    starting_cell = choice(list_of_empty_cells)
-
-    # starting_cell = '1-1'   # Проверка
-
-    starting_cell = starting_cell.split('-')
-
-    # print(len(list_of_empty_cells))
-
-    starting_cell_row = int(starting_cell[0])
-    starting_cell_column = int(starting_cell[1])
-
-    # print(starting_cell_row, starting_cell_column)
-
+    # If the initial position of the ship will cause it to go out of the field.
     if starting_cell_column == 8:
         starting_cell_column -= randint(1, 7)
     elif starting_cell_column == 9:
@@ -68,7 +56,6 @@ if direction == 'horizontal':
 
     scc = starting_cell_column
 
-
     # remove used cells from the list
     for _ in range(4):
         field[starting_cell_row][scc] = 1
@@ -77,11 +64,12 @@ if direction == 'horizontal':
     if (str(starting_cell_row) + '-' + str(scc)) in list_of_empty_cells :
         list_of_empty_cells.remove(str(starting_cell_row) + '-' + str(scc))
 
-    scc -= 5
+    scc = starting_cell_column - 1
     if (str(starting_cell_row) + '-' + str(scc)) in list_of_empty_cells :
         list_of_empty_cells.remove(str(starting_cell_row) + '-' + str(scc))
 
-    # print(list_of_empty_cells)
+    field[starting_cell_row][starting_cell_column - 1] = 8
+    field[starting_cell_row][starting_cell_column + 4] = 8
 
     # removal of used cells from the list if the ship is adjacent to the borders of the field
     if 1 < starting_cell_row < 10:
@@ -107,12 +95,55 @@ if direction == 'horizontal':
                 list_of_empty_cells.remove(str(starting_cell_row - 1) + '-' + str(scc))
             scc += 1
 
+else:
+    # If the initial position of the ship will cause it to go out of the field.
+    if starting_cell_row == 8:
+        starting_cell_row -= randint(1, 7)
+    elif starting_cell_row == 9:
+        starting_cell_row -= randint(2, 8)
+    elif starting_cell_row == 10:
+        starting_cell_row -= randint(3, 9)
 
-    field[starting_cell_row][starting_cell_column - 1] = 8
-    field[starting_cell_row][starting_cell_column + 4] = 8
+    scr = starting_cell_row
 
+    # remove used cells from the list
+    for _ in range(4):
+        field[scr][starting_cell_column] = 1
+        list_of_empty_cells.remove(str(scr) + '-' + str(starting_cell_column))
+        scr += 1
+    if (str(scr) + '-' + str(starting_cell_column)) in list_of_empty_cells:
+        list_of_empty_cells.remove(str(scr) + '-' + str(starting_cell_column))
 
+    scr = starting_cell_row - 1
+    if (str(scr) + '-' + str(starting_cell_column)) in list_of_empty_cells :
+        list_of_empty_cells.remove(str(scr) + '-' + str(starting_cell_column))
 
+    field[starting_cell_row-1][starting_cell_column] = 8
+    field[starting_cell_row+4][starting_cell_column] = 8
+
+    # removal of used cells from the list if the ship is adjacent to the borders of the field
+    if 1 < starting_cell_column < 10:
+        for column in [starting_cell_column - 1, starting_cell_column + 1]:
+            scr = starting_cell_row - 1
+            for _ in range(6):
+                field[scr][column] = 8
+                if (str(scr) + '-' + str(column)) in list_of_empty_cells:
+                    list_of_empty_cells.remove(str(scr) + '-' + str(column))
+                scr += 1
+    elif starting_cell_column == 1:
+        scr = starting_cell_row - 1
+        for _ in range(6):
+            field[scr][starting_cell_column + 1] = 8
+            if (str(scr) + '-' + str(starting_cell_column + 1)) in list_of_empty_cells:
+                list_of_empty_cells.remove(str(scr) + '-' + str(starting_cell_column + 1))
+            scr += 1
+    elif starting_cell_column == 10:
+        scr = starting_cell_row - 1
+        for _ in range(6):
+            field[scr][starting_cell_column - 1] = 8
+            if (str(scr) + '-' + str(starting_cell_column - 1)) in list_of_empty_cells:
+                list_of_empty_cells.remove(str(scr) + '-' + str(starting_cell_column - 1))
+            scr += 1
 
 
 for i in range(12):
@@ -122,4 +153,3 @@ print(direction)
 
 print(list_of_empty_cells)
 print(len(list_of_empty_cells))
-
