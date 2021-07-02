@@ -38,12 +38,17 @@ list_of_empty_cells = [
 def Position_of_a_ship_with_4_slots():
     direction = choice(['horizontal', 'vertical'])
 
+    direction = 'horizontal'         # ПРОВЕРКА -----------------------------------------------------------------------
+
     starting_cell = choice(list_of_empty_cells).split('-')
 
-    starting_cell = [1, 1]         # ПРОВЕРКА -------------------------------------------------------------------------
+    # starting_cell = [1, 7]         # ПРОВЕРКА -----------------------------------------------------------------------
 
     starting_cell_row = int(starting_cell[0])
     starting_cell_column = int(starting_cell[1])
+
+    starting_cell_row = 1            # ПРОВЕРКА -----------------------------------------------------------------------
+
 
     if direction == 'horizontal':
         # If the initial position of the ship will cause it to go out of the field.

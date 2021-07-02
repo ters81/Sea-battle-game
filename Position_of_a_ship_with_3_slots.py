@@ -61,7 +61,7 @@ def Position_of_a_ship_with_3_slots():
 
     starting_cell = choice(list_of_empty_cells).split('-')
 
-    starting_cell = '1-9'.split('-')           # ПРОВЕРКА -------------------------------------------------------------
+    starting_cell = '1-4'.split('-')           # ПРОВЕРКА -------------------------------------------------------------
 
     starting_cell_row = int(starting_cell[0])
     starting_cell_column = int(starting_cell[1])
@@ -74,10 +74,38 @@ def Position_of_a_ship_with_3_slots():
                 starting_cell_column = randint(1, 8)
             Ship_3_with_ship_4_in_a_one_row()
 
-
         elif field[starting_cell_row].count(0) == 5 and field[starting_cell_row][10] == 0:
             starting_cell_column = randint(6, 8)
             Ship_3_with_ship_4_in_a_one_row()
+
+        elif field[starting_cell_row].count(0) == 5 and field[starting_cell_row][1] == 0:
+            starting_cell_column = randint(1, 3)
+            Ship_3_with_ship_4_in_a_one_row()
+
+        elif field[starting_cell_row].count(0) == 4 and field[starting_cell_row][7] == 0 and field[starting_cell_row][10] == 0:
+            starting_cell_column = randint(7, 8)
+            Ship_3_with_ship_4_in_a_one_row()
+
+        elif field[starting_cell_row].count(0) == 4 and field[starting_cell_row][1] == 0 and field[starting_cell_row][4] == 0:
+            starting_cell_column = randint(1, 2)
+            Ship_3_with_ship_4_in_a_one_row()
+
+        elif field[starting_cell_row].count(0) == 4 and field[starting_cell_row][1] == 0 and field[starting_cell_row][8] == 0:
+            starting_cell_column = 8
+            Ship_3_with_ship_4_in_a_one_row()
+
+        elif field[starting_cell_row].count(0) == 4 and field[starting_cell_row][3] == 0 and field[starting_cell_row][10] == 0:
+            starting_cell_column = 1
+            Ship_3_with_ship_4_in_a_one_row()
+
+        elif field[starting_cell_row].count(0) == 7:
+            pass
+
+        elif field[starting_cell_row].count(0) == 8:
+            pass
+        else: # когда горизонтадбный 4-х палубный посредине (2 пустые с каждой стороны)
+            pass
+
 
 
 
