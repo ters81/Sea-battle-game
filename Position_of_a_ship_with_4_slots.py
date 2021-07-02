@@ -40,7 +40,7 @@ def Position_of_a_ship_with_4_slots():
 
     starting_cell = choice(list_of_empty_cells).split('-')
 
-    starting_cell = [3, 9]
+    starting_cell = [1, 1]         # ПРОВЕРКА -------------------------------------------------------------------------
 
     starting_cell_row = int(starting_cell[0])
     starting_cell_column = int(starting_cell[1])
